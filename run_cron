@@ -1,0 +1,4 @@
+#!/bin/bash
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/games
+
+php /home/dangrmous/igd/cron_status.php >> /home/dangrmous/cron_jobs.log

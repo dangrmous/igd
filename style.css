@@ -1,0 +1,56 @@
+body {
+    padding: 0px;
+    border: 0px;
+    margin: 0px;
+}
+
+#main {
+    padding: 10px;
+    background-color: black;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    font-family: helvetica;
+    font-size: 128px;
+
+}
+
+#map_canvas{
+    height: 100%;
+    width: 100%;
+    display: none;
+}
+
+#showMap {
+    text-decoration: none;
+    display: inline-block;
+
+}
+
+#button {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: inherit;
+
+}
+
+h1 {
+    color: white;
+    font-family: helvetica;
+    font-size: 70%;
+}
+
+h2.index {
+    color: white;
+    font-family: helvetica;
+    font-size: 30%;
+}
+
+h2.admin {
+    font-family: helvetica;
+}
+
+#adminBody{
+    padding: 10px;
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.1/base-min.css">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.1/pure-min.css">
+    <link rel="stylesheet" href="style.css" type="text/css"/>
+    <meta name="viewport" content="width=device-width">
+    <title>Admin panel</title>
+</head>
+<body id="adminBody">
+<div id="fb-root"></div>
+
+<form id="inputForm" name="form" method="post" class="pure-form pure-form-stacked" action="service.php">
+    <input type="hidden" name="action" value="updateStatus" id="action">
+
+    <h2 class="admin">Drinking?</h2>
+    <label for="isDrinking" class="pure-radio">
+        <input id="isDrinking" type="radio" name="drinkingRadio" value="1">
+        Yes
+
+    </label>
+    <label for="isNotDrinking" class="pure-radio">
+        <input id="isNotDrinking" type="radio" name="drinkingRadio" value="0">
+        No
+
+    </label>
+    <label for="homeMode" class="pure-radio">
+        <input id="homeMode" type="radio" name="drinkingRadio" value="2">
+        Home mode
+
+    </label>
+    <br>
+
+    <h2 class="admin">Enter comments:</h2>
+    <input id="commentBox" type="text" style="height:50px"/>
+    <br>
+
+    <h2 class="admin">Password:</h2>
+    <input id="password" type="password"/>
+    <br>
+    <label for="postToFacebook">
+        <input id="postToFacebook" type="checkbox">
+        Post to Facebook?
+    </label>
+    <br>
+    <button class="pure-button" type="submit" id="submitButton">Submit</button>
+    <br>
+
+    <h3 class="admin" id="resultMsg"></h3>
+    <br>
+</form>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<script type="text/javascript" src="admin.js"></script>
+<script src="//connect.facebook.net/en_UK/all.js"></script>
+</body>
+</html>
