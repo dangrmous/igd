@@ -11,17 +11,14 @@
 function db_connection($query)
 {
 
-    //Database info - refactor to be read in by config! TODO
-
-    $username = 'USERNAME';
-    $pass = 'PASSWORD';
-    $dbname = 'DATABASENAME';
+    $config_vars = require '../igd_config.php';
 
     $result = array();
     $result['values'] = array(); //This contains either the actual data, or an error message on fail
     $result['status'] = true; //Success / failure value
     try { 
-        $dbh = new PDO('mysql:host=127.0.0.1;dbname=' . $dbname, $username, $pass);
+        $dbh = new PDO('mysql:host=127.0.0.1;dbname=' . $config_vars['db_name'] ,
+        $config_vars['username'], $config_vars['password']);
         }
 
      catch (PDOException $e) {
@@ -51,3 +48,4 @@ function db_connection($query)
 }
 
 }
+
