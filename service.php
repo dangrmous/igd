@@ -8,6 +8,7 @@ if ($_POST) {
 
 
         $query = "select status, comment, latitude, longitude, created from drinking where created=(select max(created) from drinking)";
+
         $result = db_connection($query);
         $result = $result[0]; //We know the response will be 1 row, so we ditch the array of rows
         echo json_encode($result);
@@ -35,10 +36,10 @@ if ($_POST) {
         $query = "INSERT INTO drinking VALUES (NULL, " . $status . ",'" . $comment . "'," . $latitude . ", " . $longitude . ",NULL)";
         $result = db_connection($query);
 
-        if ($result) {
-            success($result);//"Status updated successfully");
-        } else {
-            fail($result);//"Insert failed. Contact your database administrator! Query was: " . $query);
+        if ($result['status'] == true) {
+            success("Status updated successfully");
+        } elseif ($result['status'] == false) {
+            fail($result['values']);
         }
         exit;
     };

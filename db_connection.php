@@ -7,33 +7,47 @@
  * To change this template use File | Settings | File Templates.
  */
 
-//$query = "INSERT INTO drinking VALUES (NULL, 1,'at work',45.523452, -122.67620699999999,NULL)";
 
 function db_connection($query)
 {
 
-    //Database info
+    //Database info - refactor to be read in by config! TODO
 
     $username = 'USERNAME';
     $pass = 'PASSWORD';
-    $db_name = 'DATABASE NAME';
+    $dbname = 'DATABASENAME';
 
-    try { //Change dbname variable as needed for test/production
-        $dbh = new PDO('mysql:host=127.0.0.1;port=3306;dbname=' . $db_name, $username, $pass);
-
-        //$test = $dbh->query($query);
-
-        $result = array();
-        foreach ($dbh->query($query) as $row) {
-            array_push($result, $row);
+    $result = array();
+    $result['values'] = array(); //This contains either the actual data, or an error message on fail
+    $result['status'] = true; //Success / failure value
+    try { 
+        $dbh = new PDO('mysql:host=127.0.0.1;dbname=' . $dbname, $username, $pass);
         }
-        $dbh = null;
+
+     catch (PDOException $e) {
+        $result['status'] = false;
+        $result['values'] = $e->getMessage();
         return $result;
-    } catch (PDOException $e) {
-        $result = "Error!: " . $e->getMessage();
-        return $result;
-        die();
     }
+
+    $data = $dbh->query($query);
+
+    if ($data == false){
+        $result['status'] = false;
+        $result['values'] = "A database error occurred.";
+        return $result;
+    }
+
+    if ($data != false){
+
+
+    foreach ($dbh->query($query) as $row) {
+                    array_push($result['values'], $row);
+                }
+                $result['status'] = true;
+                $dbh = null;
+
+                return $result;
 }
 
-//db_connection($query);
+}
