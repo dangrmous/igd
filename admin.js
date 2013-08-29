@@ -7,11 +7,12 @@
 
 $(document).ready(function () {
 
+    var FBappID;
 
-
-
-
-
+    $.post('service.php', {"action":"getFBAppID"}, function(data){
+        FBappID = data.FBAppID;
+        console.log(FBappID);
+    }, "json");
 
     $("#inputForm").submit(function () {
         return false;
@@ -19,8 +20,11 @@ $(document).ready(function () {
 
 
     $("#postToFacebook").click(function () {
+
+
+
         FB.init({
-                appId: 'FACEBOOK APP ID',
+                appId: FBappID,
                 channelUrl: '//localhost.com/igd/channel.html'
             });
 

@@ -1,6 +1,7 @@
 <?php
 
 require_once './db_connection.php';
+$config_vars = include '../igd_config.php';
 
 date_default_timezone_set('America/Los_Angeles');
 if ($_POST) {
@@ -44,7 +45,9 @@ if ($_POST) {
         exit;
     };
 
+    if($_POST['action'] == 'getFBAppID')
 
+        echo json_encode(array("FBAppID"=>$config_vars['fb_app_id']));
 }
 
 function fail($message)
