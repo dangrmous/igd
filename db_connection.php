@@ -38,7 +38,7 @@ function db_connection($query)
     if ($data != false){
 
 
-    foreach ($dbh->query($query) as $row) {
+    foreach ($data as $row) {
                     array_push($result['values'], $row);
                 }
                 $result['status'] = true;
