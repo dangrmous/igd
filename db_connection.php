@@ -17,7 +17,7 @@ function db_connection($query)
     $result['values'] = array(); //This contains either the actual data, or an error message on fail
     $result['status'] = true; //Success / failure value
     try { 
-        $dbh = new PDO('mysql:host=127.0.0.1;dbname=' . $config_vars['db_name'] ,
+        $dbh = new PDO('mysql:host='. $config_vars['host_name'] . ';dbname=' . $config_vars['db_name'] ,
         $config_vars['username'], $config_vars['password']);
         }
 
