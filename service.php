@@ -11,7 +11,7 @@ if ($_POST) {
         $query = "select status, comment, latitude, longitude, created from drinking where created=(select max(created) from drinking)";
 
         $result = db_connection($query);
-        $result = $result[0]; //We know the response will be 1 row, so we ditch the array of rows
+        $result = $result['values'][0]; //We know the response will be 1 row, so we ditch the array of rows
         echo json_encode($result);
 
         exit;
