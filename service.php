@@ -17,12 +17,12 @@ if ($_POST) {
         exit;
     };
 
-    if (($_POST['action'] == 'updateStatus') && ($_POST['password'] != "3141")) {
+    if (($_POST['action'] == 'updateStatus') && ($_POST['password'] != $config_vars['admin_password'])) {
         fail("Unauthorized");
         exit;
     };
 
-    if (($_POST['action'] == 'updateStatus') && ($_POST['password'] == "3141")) { //  {
+    if (($_POST['action'] == 'updateStatus') && ($_POST['password'] == $config_vars['admin_password'])) { //  {
         //var_dump($_POST);
         if ($_POST['status'] == '2') {
             $latitude = 45.52923;

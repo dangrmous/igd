@@ -11,5 +11,6 @@ $config_vars['username'] = YOUR_USER_NAME;
 $config_vars['password'] = YOUR_PASSWORD;
 $config_vars['db_name'] = DATABASE_NAME;
 $config_vars['fb_app_id'] = FACEBOOK_APP_ID;
+$config_vars['admin_password'] = ADMIN_PASSWORD;
 
 return $config_vars;
