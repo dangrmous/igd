@@ -18,12 +18,12 @@ echo "Running db updater at " . $readableTime . "\n";
 $query = "select status, comment, latitude, longitude, created from drinking where created=(select max(created) from drinking)";
 $result = db_connection($query);
 
-if (!($result)) echo "Db connection failed.\n";
+if (!($result['status'])) echo "Db connection failed.\n";
 
-$result = $result[0];
+//$result = $result['values'][0];
 
 
-$lastUpdateTime = new DateTime($result['created']);
+$lastUpdateTime = new DateTime($result['values']['0']['created']);
 $lastUpdateTimeReadable = $lastUpdateTime->format('Y-m-d H:i:s');
 $lastUpdateTime = $lastUpdateTime->format('U');
 
