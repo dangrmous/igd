@@ -20,9 +20,6 @@ $result = db_connection($query);
 
 if (!($result['status'])) echo "Db connection failed.\n";
 
-//$result = $result['values'][0];
-
-
 $lastUpdateTime = new DateTime($result['values']['0']['created']);
 $lastUpdateTimeReadable = $lastUpdateTime->format('Y-m-d H:i:s');
 $lastUpdateTime = $lastUpdateTime->format('U');
