@@ -11,7 +11,7 @@
 function db_connection($query)
 {
 
-    $config_vars = require $_SERVER['DOCUMENT_ROOT'] . "/igd_config.php";
+    $config_vars = require "../igd_config.php";
 
     $result = array();
     $result['values'] = array(); //This contains either the actual data, or an error message on fail
