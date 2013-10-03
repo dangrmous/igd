@@ -7,87 +7,75 @@
 
 $(document).ready(function () {
 
-    var FBappID;
+    var igd = {};
+    navigator.geolocation.getCurrentPosition(successHandler, errorHandler);
+    function successHandler(location) {
+        igd.currentLatitude = location.coords.latitude;
+        igd.currentLongitude = location.coords.longitude;
+        igd.status = "success";
+    }
 
-    $.post('service.php', {"action":"getFBAppID"}, function(data){
-        FBappID = data.FBAppID;
-        console.log(FBappID);
+    function errorHandler(location) {
+        alert("Unable to get current location!");
+        igd.status = "fail";
+    }
+
+
+    $.post('service.php', {"action": "getFBAppID"}, function (data) {
+        igd.FBappID = data.FBAppID;
     }, "json");
-
-    $("#inputForm").submit(function () {
-        return false;
-    });
-
 
     $("#postToFacebook").click(function () {
 
-
-
         FB.init({
-                appId: FBappID,
-                channelUrl: '//localhost.com/igd/channel.html'
-            });
+            appId: igd.FBappID,
+            channelUrl: '//localhost.com/igd/channel.html'
+        });
 
-            FB.login(function(){
-                //Handle the response
-            }, {scope:'publish_actions'});
+        FB.login(function () {
+            //Handle the response
+        }, {scope: 'publish_actions'});
 
     });
-
-    $("#submitButton").click(function () {
-        //console.log("#submitButton clicked\n");
-        navigator.geolocation.getCurrentPosition(successHandler, errorHandler);
-        function successHandler(location) {
-            action = "updateStatus";
-            currentLatitude = location.coords.latitude;
-            currentLongitude = location.coords.longitude;
-            status = $("input[name='drinkingRadio']:checked").val();
-            comment = $("#commentBox").val();
-            password = $("#password").val();
-            postData = {"action": action, "password": password, "status": status, "comment": comment, "latitude": currentLatitude, "longitude": currentLongitude};
-
-            $.post("service.php", postData, function (data) {
-                if (data.status == 'success') {
-                    $("#resultMsg").css("color", "green");
-                    $("#resultMsg").css("display", "none");
-                    $("#resultMsg").text(data.message);
-                    $("#resultMsg").fadeIn(500);
-                    $("#resultMsg").fadeOut(2000);
-                }
-
-                else if (data.status == 'fail') {
-                    $("#resultMsg").css("color", "red");
-                    $("#resultMsg").css("display", "none");
-                    $("#resultMsg").text(data.message);
-                    $("#resultMsg").fadeIn(500);
-                    $("#resultMsg").fadeOut(2000);
-
-                }
-            }, "json");
-
-            updateFacebookStatus(comment);
-
-        };
+})
 
 
-        function errorHandler(error) {
-            alert('Attempt to get location failed: ' + error.message);
-        };
 
-        function updateFacebookStatus(messageContents){
+updateFacebookStatus($("commentBox").val);
 
-        if($("input#postToFacebook:checked").val())
-        {
-            var body = 'http://isgeoffdrinking.com was just updated! \n\n \"' + messageContents + '\"';
-            FB.api('/me/feed', 'post', { message: body }, function(response) {
-              if (!response || response.error) {
+function updateFacebookStatus(messageContents) {
+
+    if ($("input#postToFacebook:checked").val()) {
+        var body = 'http://isgeoffdrinking.com was just updated! \n\n \"' + messageContents + '\"';
+        FB.api('/me/feed', 'post', { message: body }, function (response) {
+            if (!response || response.error) {
                 console.log('Error occured');
-              } else {
+                igd.status = "fail";
+            } else {
                 console.log('Post ID: ' + response.id);
-              }
-            });
-        }
-        };
 
-    });
-});
+            }
+        });
+    }
+
+}
+
+function displayStatusMessage(status) {
+    if (status == 'success') {
+        $("#resultMsg").css("color", "green");
+        $("#resultMsg").css("display", "none");
+        $("#resultMsg").text(data.message);
+        $("#resultMsg").fadeIn(500);
+        $("#resultMsg").fadeOut(2000);
+    }
+
+    else if (status == 'fail') {
+        $("#resultMsg").css("color", "red");
+        $("#resultMsg").css("display", "none");
+        $("#resultMsg").text(data.message);
+        $("#resultMsg").fadeIn(500);
+        $("#resultMsg").fadeOut(2000);
+
+    }
+}
+

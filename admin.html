@@ -10,7 +10,7 @@
 <body id="adminBody">
 <div id="fb-root"></div>
 
-<form id="inputForm" name="form" method="post" class="pure-form pure-form-stacked" action="service.php">
+<form id="inputForm" name="form" method="post" class="pure-form pure-form-stacked" action="service.php" target=<?=$_SERVER['>
     <input type="hidden" name="action" value="updateStatus" id="action">
 
     <h2 class="admin">Drinking?</h2>
@@ -43,7 +43,16 @@
         Post to Facebook?
     </label>
     <br>
-    <button class="pure-button" type="submit" id="submitButton">Submit</button>
+
+    <h2 class="admin">Choose photo:</h2>
+    <label for="postPhoto">
+        <br>
+        <input id="postPhoto" type="file" accept="image/*" capture="camera">
+    </label>
+    <br>
+
+<br>
+    <button class="pure-button" type="submit" action="service.php" id="submitButton" style="background:yellow">Submit</button>
     <br>
 
     <h3 class="admin" id="resultMsg"></h3>
