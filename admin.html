@@ -10,7 +10,7 @@
 <body id="adminBody">
 <div id="fb-root"></div>
 
-<form id="inputForm" name="form" method="post" class="pure-form pure-form-stacked" action="service.php" target=<?=$_SERVER['>
+<form id="inputForm" name="form" method="post" class="pure-form pure-form-stacked" action="service.php">
     <input type="hidden" name="action" value="updateStatus" id="action">
 
     <h2 class="admin">Drinking?</h2>
@@ -32,14 +32,14 @@
     <br>
 
     <h2 class="admin">Enter comments:</h2>
-    <input id="commentBox" type="text" style="height:50px"/>
+    <input id="commentBox" type="text" style="height:50px" name="commentBox"/>
     <br>
 
     <h2 class="admin">Password:</h2>
-    <input id="password" type="password"/>
+    <input id="password" type="password" name="password"/>
     <br>
     <label for="postToFacebook">
-        <input id="postToFacebook" type="checkbox">
+        <input id="postToFacebook" type="checkbox" name="postToFacebook">
         Post to Facebook?
     </label>
     <br>
@@ -47,17 +47,18 @@
     <h2 class="admin">Choose photo:</h2>
     <label for="postPhoto">
         <br>
-        <input id="postPhoto" type="file" accept="image/*" capture="camera">
+        <input id="postPhoto" type="file" accept="image/*" capture="camera" name="postPhoto">
     </label>
     <br>
 
 <br>
-    <button class="pure-button" type="submit" action="service.php" id="submitButton" style="background:yellow">Submit</button>
+    <button id="submitButton" class="pure-button" type="button" style="background:yellow">Submit</button>
     <br>
 
     <h3 class="admin" id="resultMsg"></h3>
     <br>
 </form>
+<progress></progress>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 <script type="text/javascript" src="admin.js"></script>
