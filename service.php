@@ -24,6 +24,7 @@ if ($_POST) {
 
     if (($_POST['action'] == 'updateStatus') && ($_POST['password'] == $config_vars['admin_password'])) { //  {
         //var_dump($_POST);
+        $result['message'] = "Status updated successfully"; //We start with assumed success and change as needed
         if ($_POST['drinkingRadio'] == '2') {
             $latitude = 45.52923;
             $longitude = -122.60219;
@@ -47,11 +48,14 @@ if ($_POST) {
         if(move_uploaded_file($_FILES["postPhoto"]["tmp_name"], $target_path)){
             $result['imageURL'] = 'http://isgeoffdrinking.com/assets/' . $file_name;
             $result['status'] = true;
+
         }
 
         else {
             $result['status'] = false;
             $result['message'] =  'Could not move file';
+            echo json_encode($result);
+            exit;
 
         }
 
