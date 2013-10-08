@@ -5,9 +5,11 @@
  * Time: 5:11 PM
  */
 
+var igd = {};
+
 $(document).ready(function () {
 
-    var igd = {};
+
     navigator.geolocation.getCurrentPosition(successHandler, errorHandler);
     function successHandler(location) {
         igd.currentLatitude = location.coords.latitude;
@@ -39,36 +41,34 @@ $(document).ready(function () {
     });
 })
 
-$(':button').click(function(){
-    var formData = new FormData($('form')[0]);
-    $.ajax({
+$('#submitButton').click(function(){
+    var formData = new FormData(document.forms.namedItem("inputForm"));
+    formData.append("action", "updateStatus");
+    formData.append("latitude", igd.currentLatitude);
+    formData.append("longitude", igd.currentLongitude);
+    response = $.ajax({
         url: 'service.php',  //Server script to process data
         type: 'POST',
-        xhr: function() {  // Custom XMLHttpRequest
-            var myXhr = $.ajaxSettings.xhr();
-            if(myXhr.upload){ // Check if upload property exists
-                myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // For handling the progress of the upload
-            }
-            return myXhr;
-        },
-        //Ajax events
-        //beforeSend: beforeSendHandler,
-        //success: completeHandler,
-        //error: errorHandler,
-        // Form data
         data: formData,
         //Options to tell jQuery not to process data or worry about content-type.
         cache: false,
         contentType: false,
-        processData: false
-    });
+        processData: false,
+        success: successFunction() //NOT the same as completing the request/response dialog
+    }).done(function(){ //Do something after the response comes back
+            completedFunction(response.responseText)
+        });
 });
 
-function progressHandlingFunction(e){
-    if(e.lengthComputable){
-        $('progress').attr({value:e.loaded,max:e.total});
-    }
-}
+function successFunction(){
+    //Some code could go here which would execute right after
+    //the post is sent
+};
+
+function completedFunction(serverResponse){ //Called after request and response from server
+
+
+};
 
 updateFacebookStatus($("commentBox").val);
 
