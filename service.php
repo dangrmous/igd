@@ -39,10 +39,11 @@ if ($_POST) {
 
 
         if ($_FILES){
-            $file_name = $_FILES["postPhoto"]["name"];
+            $file_name = $_FILES["postPhoto"]["name"]; //Lets make the image name unique to be on the safe side
+            $split_name = explode(".", $file_name); //We need the file extension
+            $file_uuid = uniqid() . "." . $split_name['1']; //Tack the file extension back on
 
-
-        $target_path = __DIR__ . "/assets/" . $file_name;
+        $target_path = __DIR__ . "/assets/" . $file_uuid;
 
         if(move_uploaded_file($_FILES["postPhoto"]["tmp_name"], $target_path)){
             $result['imageURL'] = 'http://isgeoffdrinking.com/assets/' . $file_name;
