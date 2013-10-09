@@ -1,5 +1,4 @@
 <?php
-
 require_once './db_connection.php';
 $config_vars = include '../igd_config.php';
 
@@ -24,6 +23,7 @@ if ($_POST) {
 
     if (($_POST['action'] == 'updateStatus') && ($_POST['password'] == $config_vars['admin_password'])) { //  {
         //var_dump($_POST);
+
         $result['message'] = "Status updated successfully"; //We start with assumed success and change as needed
         if ($_POST['drinkingRadio'] == '2') {
             $latitude = 45.52923;
@@ -35,13 +35,12 @@ if ($_POST) {
         $comment = $_POST['commentBox'];
         $comment = utf8_encode($comment);
         $status = $_POST['drinkingRadio'];
-        $query = "INSERT INTO drinking VALUES (NULL, " . $status . ",'" . $comment . "'," . $latitude . ", " . $longitude . ",NULL)";
-        $dbResult = db_connection($query);
+
 
 
         if ($_FILES){
             $file_name = $_FILES["postPhoto"]["name"];
-        }
+
 
         $target_path = __DIR__ . "/assets/" . $file_name;
 
@@ -58,6 +57,9 @@ if ($_POST) {
             exit;
 
         }
+        }
+        $query = "INSERT INTO drinking VALUES (NULL, " . $status . ",'" . $comment . "'," . $latitude . ", " . $longitude . ",NULL)";
+                $dbResult = db_connection($query);
 
         if ($dbResult['status'] == true) {
             $result['status'] = true;

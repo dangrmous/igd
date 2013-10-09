@@ -53,12 +53,13 @@ $('#submitButton').click(function(){
         //Options to tell jQuery not to process data or worry about content-type.
         cache: false,
         contentType: false,
-        processData: false
+        processData: false,
+        dataType: 'json'
         //success: successFunction() NOT the same as completing the request/response dialog
-    }).done(function(response){ //Do something after the response comes back
+    }).done(function(){ //Do something after the response comes back
             console.log(".done function called");
             console.log("with data: " + response);
-            completedFunction(response.responseText)
+            completedFunction(response);
         });
 });
 
@@ -68,11 +69,13 @@ function successFunction(){
 };
 
 function completedFunction(serverResponse){ //Called after request and response from server
-    console.log(serverResponse.status + ' ' + serverResponse.message);
+
+    responseObject = $.parseJSON(serverResponse.responseText);
+
     if ($("input#postToFacebook:checked").val()){
-        updateFacebookStatus($("commentBox").val , serverResponse.url);
+        updateFacebookStatus($("commentBox").val , responseObject.url);
     }
-    displayStatusMessage(serverResponse);
+    displayStatusMessage(responseObject);
 
 };
 
@@ -101,7 +104,7 @@ function updateFacebookStatus(messageContents , photoURL) {
 
 function displayStatusMessage(data) {
     console.log('dSM called');
-    if (data.status == "true") {
+    if (data.status == true) {
         $("#resultMsg").css("color", "green");
         $("#resultMsg").css("display", "none");
         $("#resultMsg").text(data.message);
@@ -109,7 +112,7 @@ function displayStatusMessage(data) {
         $("#resultMsg").fadeOut(2000);
     }
 
-    else if ((data.status) == "false") {
+    else if ((data.status) == false) {
         $("#resultMsg").css("color", "red");
         $("#resultMsg").css("display", "none");
         $("#resultMsg").text(data.message);
