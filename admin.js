@@ -31,7 +31,7 @@ $(document).ready(function () {
 
         FB.init({
             appId: igd.FBappID,
-            channelUrl: '//localhost.com/igd/channel.html'
+            channelUrl: '//isgeoffdrinking.com/channel.html'
         });
 
         FB.login(function () {
