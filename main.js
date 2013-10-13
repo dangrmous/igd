@@ -51,7 +51,7 @@ function showTheMap() {
                 var marker = new google.maps.Marker(opts);
                 var info = "<p>" + data.comment + "<br>" + "Here since: " + data.created + "</p>";
                 if (data.image != null){
-                    info += '<img src="' + data.image + '" height=200 width=200>';
+                    info += '<img src="' + data.image + '" width=250>';
                 }
                 info_window.content = info;
                 info_window.open(map,marker);
