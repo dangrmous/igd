@@ -46,7 +46,7 @@ if ($_POST) {
         $target_path = $config_vars['asset_dir'] . "/" . $file_uuid;
 
         if(move_uploaded_file($_FILES["postPhoto"]["tmp_name"], $target_path)){
-            $result['imageURL'] = $config_vars['domain'] . '/assets/' . $file_uuid;
+            $result['imageURL'] = 'http://' . $config_vars['domain'] . '/assets/' . $file_uuid;
             $result['status'] = true;
 
         }

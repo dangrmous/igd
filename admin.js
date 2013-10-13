@@ -79,10 +79,12 @@ function successFunction(){
 
 function completedFunction(serverResponse){ //Called after request and response from server
 
+    var responseObject = {};
+    var comments = $("#commentBox").val();
     responseObject = $.parseJSON(serverResponse.responseText);
 
     if ($("input#postToFacebook:checked").val()){
-        updateFacebookStatus($("commentBox").val , responseObject.url);
+        updateFacebookStatus(comments , responseObject.imageURL);
     }
     displayStatusMessage(responseObject);
 
@@ -93,6 +95,8 @@ function completedFunction(serverResponse){ //Called after request and response 
 function updateFacebookStatus(messageContents , photoURL) {
 
      {
+         console.log("photoURL: " + photoURL);
+
         var fbPost = {};
         fbPost.message = 'http://isgeoffdrinking.com was just updated! \n\n \"' + messageContents + '\"';
         if($("input#photoCheckbox:checked").val()){
