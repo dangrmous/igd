@@ -38,11 +38,20 @@ $(document).ready(function () {
             //Handle the response
         }, {scope: 'publish_actions'});
 
+
     });
+
+    $("input#photoCheckbox").click(function(){
+
+    })
 })
+
+
 
 $('#submitButton').click(function(){
     var formData = new FormData(document.forms.namedItem("inputForm"));
+
+
     formData.append("action", "updateStatus");
     formData.append("latitude", igd.currentLatitude);
     formData.append("longitude", igd.currentLongitude);
