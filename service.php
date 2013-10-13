@@ -43,7 +43,7 @@ if ($_POST) {
             $split_name = explode(".", $file_name); //We need the file extension
             $file_uuid = uniqid() . "." . $split_name['1']; //Tack the file extension back on
 
-        $target_path = __DIR__ . "/assets/" . $file_uuid;
+        $target_path = $config_vars['asset_dir'] . "/" . $file_uuid;
 
         if(move_uploaded_file($_FILES["postPhoto"]["tmp_name"], $target_path)){
             $result['imageURL'] = $config_vars['domain'] . '/assets/' . $file_uuid;

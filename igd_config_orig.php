@@ -14,5 +14,6 @@ $config_vars['fb_app_id'] = FACEBOOK_APP_ID;
 $config_vars['host_name'] = HOSTNAME;
 $config_vars['admin_password'] = ADMIN_PASSWORD;
 $config_vars['domain'] = DOMAIN;
+$config_vars['asset_dir'] = ASSET_DIRECTORY;
 
 return $config_vars;
