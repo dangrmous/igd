@@ -46,6 +46,7 @@ if ($_POST) {
         $target_path = $config_vars['asset_dir'] . "/" . $file_uuid;
 
         if(move_uploaded_file($_FILES["postPhoto"]["tmp_name"], $target_path)){
+            correctOrientation($target_path);
             $result['imageURL'] = 'http://' . $config_vars['domain'] . '/assets/' . $file_uuid;
             $result['status'] = true;
 
@@ -92,13 +93,13 @@ function correctOrientation($image_path){
     $orientation = $exif['Orientation'];
     $split_name = explode(".", $image_path);
     switch($split_name['1']){
-        case "jpg": //Only including JPEG case - duplicate cases for other file formats if needed
-        case "JPG":
+        case (($split_name['1'] == "jpg") || ($split_name['1'] == "JPG")): //Only including JPEG case - duplicate cases for other file formats if needed
             $image = imagecreatefromjpeg($image_path);
             $rotated = rotateImage($image, $orientation);
             imagejpeg($rotated, $image_path);
             imagedestroy($rotated);
             imagedestroy($image);
+            break;
     }
 
 }
@@ -106,16 +107,16 @@ function correctOrientation($image_path){
 function rotateImage($image, $orientation){
     switch ($orientation) {
         case 6:
-            $rotated = $image;
+            $rotated = imagerotate($image, 270, 0);
             break;
         case 3:
-            $rotated = imagerotate($image, 90, 0);
-            break;
-        case 8:
             $rotated = imagerotate($image, 180, 0);
             break;
+        case 8:
+            $rotated = imagerotate($image, 90, 0);
+            break;
         case 1:
-            $rotated = imagerotate($image, 270, 0);
+            $rotated = imagerotate($image, 0, 0);
             break;
     }
 
