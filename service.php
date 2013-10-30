@@ -85,3 +85,41 @@ if ($_POST) {
         echo json_encode(array("FBAppID"=>$config_vars['fb_app_id']));
 }
 
+function correctOrientation($image_path){
+
+    $exif = exif_read_data($image_path);
+    if  (!$exif['Orientation']) return;
+    $orientation = $exif['Orientation'];
+    $split_name = explode(".", $image_path);
+    switch($split_name['1']){
+        case "jpg": //Only including JPEG case - duplicate cases for other file formats if needed
+        case "JPG":
+            $image = imagecreatefromjpeg($image_path);
+            $rotated = rotateImage($image, $orientation);
+            imagejpeg($rotated, $image_path);
+            imagedestroy($rotated);
+            imagedestroy($image);
+    }
+
+}
+
+function rotateImage($image, $orientation){
+    switch ($orientation) {
+        case 6:
+            $rotated = $image;
+            break;
+        case 3:
+            $rotated = imagerotate($image, 90, 0);
+            break;
+        case 8:
+            $rotated = imagerotate($image, 180, 0);
+            break;
+        case 1:
+            $rotated = imagerotate($image, 270, 0);
+            break;
+    }
+
+    return $rotated;
+
+}
+
