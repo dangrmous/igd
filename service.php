@@ -89,7 +89,7 @@ if ($_POST) {
 function correctOrientation($image_path){
 
     $exif = exif_read_data($image_path);
-    if  (!$exif['Orientation']) return;
+    if  (!array_key_exists('Orientation' , $exif)) return;
     $orientation = $exif['Orientation'];
     $split_name = explode(".", $image_path);
     switch($split_name['1']){
