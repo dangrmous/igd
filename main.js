@@ -6,6 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
+var main = {};
 
 $(document).ready(function () {
     adjustCSS();
@@ -51,7 +52,7 @@ function showTheMap() {
                 var marker = new google.maps.Marker(opts);
                 var info = "<p>" + data.comment + "<br>" + "Here since: " + data.created + "</p>";
                 if (data.image != null){
-                    info += '<img src="' + data.image + '" width=250>';
+                    info += '<img src="' + data.image + '" width=' + (main.windowWidth / 4) + '>';
                 }
                 info_window.content = info;
                 info_window.open(map,marker);
@@ -86,6 +87,7 @@ function updateDisplay(data) {
 function adjustCSS() {
 
     var windowWidth = $(window).width();
+    main.windowWidth = windowWidth;
     var windowHeight = $(window).height();
     var windowAverage = (windowHeight + windowWidth) / 2;
     var padding = (windowHeight / 10);
