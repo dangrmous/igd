@@ -1,6 +1,5 @@
 <?php
 require_once './db_connection.php';
-require_once './imagerotate_patch.php';
 
 $config_vars = include '../igd_config.php';
 
