@@ -48,7 +48,7 @@ if ($_POST) {
         $target_path = $config_vars['asset_dir'] . "/" . $file_uuid;
 
         if(move_uploaded_file($_FILES["postPhoto"]["tmp_name"], $target_path)){
-            correctOrientation($target_path);
+            //correctOrientation($target_path);
             $result['imageURL'] = 'http://' . $config_vars['domain'] . '/assets/' . $file_uuid;
             $result['status'] = true;
 
@@ -88,6 +88,10 @@ if ($_POST) {
         echo json_encode(array("FBAppID"=>$config_vars['fb_app_id']));
 }
 
+//Image rotation code below is commented out due to lack of support for imagerotate() function
+//in some Linux distro's
+
+/*
 function correctOrientation($image_path){
 
     $exif = exif_read_data($image_path);
@@ -124,5 +128,5 @@ function rotateImage($image, $orientation){
 
     return $rotated;
 
-}
+}*/
 
