@@ -1,5 +1,7 @@
 <?php
 require_once './db_connection.php';
+require_once './image_patch.php';
+
 $config_vars = include '../igd_config.php';
 
 date_default_timezone_set('America/Los_Angeles');
