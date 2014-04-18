@@ -23,7 +23,7 @@ if ($_POST) {
     };
 
     if (($_POST['action'] == 'updateStatus') && ($_POST['password'] == $config_vars['admin_password'])) { //  {
-        //var_dump($_POST);
+
 
         $result['message'] = "Status updated successfully"; //We start with assumed success and change as needed
         if ($_POST['drinkingRadio'] == '2') {
@@ -47,7 +47,8 @@ if ($_POST) {
         $target_path = $config_vars['asset_dir'] . "/" . $file_uuid;
 
         if(move_uploaded_file($_FILES["postPhoto"]["tmp_name"], $target_path)){
-            //correctOrientation($target_path);
+            //Only correct orientation if imagerotate() exists
+            if (function_exists('imagerotate')) correctOrientation($target_path);
             $result['imageURL'] = 'http://' . $config_vars['domain'] . '/assets/' . $file_uuid;
             $result['status'] = true;
 
@@ -87,10 +88,9 @@ if ($_POST) {
         echo json_encode(array("FBAppID"=>$config_vars['fb_app_id']));
 }
 
-//Image rotation code below is commented out due to lack of support for imagerotate() function
+//Image rotation code will not always work due to lack of support for imagerotate() function
 //in some Linux distro's
 
-/*
 function correctOrientation($image_path){
 
     $exif = exif_read_data($image_path);
@@ -127,5 +127,5 @@ function rotateImage($image, $orientation){
 
     return $rotated;
 
-}*/
+}
 
